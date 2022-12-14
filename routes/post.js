@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Post = require('../models/Post');
+const Post = require('../models/post');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const { storage } = require('./cloudinary');
