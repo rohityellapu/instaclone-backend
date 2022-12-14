@@ -12,7 +12,7 @@ router.use(bodyParser.json())
 
 const parser = multer({ storage: storage });
 
-router.post('/', parser.single('image'), async (req, res) => {
+router.post('/', parser.single('file'), async (req, res) => {
     const { name, location, description } = req.body;
     try {
         let post = await Post.create({
@@ -26,6 +26,7 @@ router.post('/', parser.single('image'), async (req, res) => {
             status: "Success",
             post
         })
+        console.log(post);
     }
     catch (err) {
         res.status(400).json({
@@ -38,7 +39,7 @@ router.post('/', parser.single('image'), async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        let posts = await Post.find();
+        let posts = await Post.find().sort({ createdAt: -1 });
         res.json({
             status: "Success",
             posts
