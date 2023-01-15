@@ -4,16 +4,22 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express')
 const app = express()
 const bodyParser = require("body-parser");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const dbUrl = process.env.DB_URL || "mongodb://localhost/instaclone"
 const mongoose = require('mongoose');
 mongoose.connect(dbUrl, () => console.log("Database Connected"))
 const postRoutes = require('./routes/post')
+const portifolioRoutes = require('./routes/portifolio')
 const cors = require('cors');
-const corsOptions = {
-    origin: 'https://instaclone-by-rohityellapu.onrender.com',
-    credentials: true,            //access-control-allow-credentials:true
-    optionSuccessStatus: 200
+var whitelist = ['https://instaclone-by-rohityellapu.onrender.com', 'https://rohityellapu-portifolio.vercel.app']
+var corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
 }
 app.use(cors(corsOptions));
 
@@ -31,7 +37,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/post', postRoutes);
-
+app.use('/portifolio', portifolioRoutes);
 app.use('/*', (req, res) => {
     res.status(404).send('Page Not Found');
 })
