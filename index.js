@@ -14,7 +14,7 @@ const cors = require('cors');
 var whitelist = ['https://instaclone-by-rohityellapu.onrender.com',
     'https://rohityellapu-portifolio.vercel.app',
     'http://localhost:3000',
-    "https://instagram-byrohit.vercel.app/"]
+    "https://instagram-byrohit.vercel.app"]
 var corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
