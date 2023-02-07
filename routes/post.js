@@ -39,11 +39,21 @@ router.post('/', parser.single('file'), async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        let posts = await Post.find().sort({ createdAt: -1 });
-        res.json({
-            status: "Success",
-            posts
-        })
+        if (req.query.load) {
+
+            let posts = await Post.find().sort({ createdAt: -1 }).skip(req.query.load).limit(5);
+            res.json({
+                status: "Success",
+                posts
+            })
+        }
+        else {
+            let posts = await Post.find().sort({ createdAt: -1 });
+            res.json({
+                status: "Success",
+                posts
+            })
+        }
     }
     catch (err) {
         res.status(400).json({
