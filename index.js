@@ -11,7 +11,10 @@ mongoose.connect(dbUrl, () => console.log("Database Connected"))
 const postRoutes = require('./routes/post')
 const portifolioRoutes = require('./routes/portifolio')
 const cors = require('cors');
-var whitelist = ['https://instaclone-by-rohityellapu.onrender.com', 'https://rohityellapu-portifolio.vercel.app']
+var whitelist = ['https://instaclone-by-rohityellapu.onrender.com',
+    'https://rohityellapu-portifolio.vercel.app',
+    'http://localhost:3000',
+    "https://instagram-byrohit.vercel.app/"]
 var corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
